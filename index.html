@@ -596,6 +596,22 @@
     .jeux-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
     .jeu-card { padding: 10px 4px 8px; }
     .jeu-card .icone { font-size: 1.8rem; }
+
+    /* Avatars : taille adaptée à la largeur de l'écran (6 par ligne) */
+    .avatar-btn {
+      width: clamp(36px, calc((100vw - 80px) / 6), 52px);
+      height: clamp(36px, calc((100vw - 80px) / 6), 52px);
+    }
+
+    /* Boutons de mode/contrôle plus compacts */
+    .mode-btn {
+      padding: 6px 10px;
+      font-size: .78rem;
+    }
+    .btn[id="bn-ori"], .btn[id="bn-alea"], .btn[id="bn-reset"] {
+      padding: 6px 8px !important;
+      font-size: .75rem !important;
+    }
   }
 
   .hidden { display: none !important; }
