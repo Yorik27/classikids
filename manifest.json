@@ -1,7 +1,7 @@
 {
-  "name": "Jeux d'Écoliers",
-  "short_name": "Écoliers",
-  "description": "10 jeux classiques pour enfants et adolescents — 2 joueurs ou contre l'IA",
+  "name": "ClassiKids",
+  "short_name": "ClassiKids",
+  "description": "10 classic games for kids · 3 languages · 2 players or vs AI",
   "lang": "fr",
   "start_url": "./index.html",
   "scope": "./",
