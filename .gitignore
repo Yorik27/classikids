@@ -1,0 +1,12 @@
+.DS_Store
+*.bak
+avatars/f_*
+avatars/g_*
+avatars/f0.jpg
+avatars/f4.jpg
+avatars/g4.jpg
+avatars/f_row1_col0.jpg
+avatars/f_test.jpg
+avatarsFilles.jpg
+avatarsGarcons.jpg
+.claude/
