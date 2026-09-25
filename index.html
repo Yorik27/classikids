@@ -1730,6 +1730,15 @@ function creerPanel(html) {
   return d;
 }
 
+// Retourne la taille max disponible pour un canvas carré (px),
+// en tenant compte à la fois de la largeur ET de la hauteur de l'écran.
+// panelOffset = hauteur estimée des éléments au-dessus du canvas (panels + topbar + padding).
+function canvasMaxPx(panelOffset, hardMax) {
+  const maxW = window.innerWidth - 32;
+  const maxH = window.innerHeight - 60 - panelOffset - 32; // topbar≈60, padding=32
+  return Math.min(maxW, Math.max(maxH, 180), hardMax || 640);
+}
+
 function creerCanvas(w, h) {
   const c = document.createElement('canvas');
   c.width = w; c.height = h;
@@ -1825,8 +1834,8 @@ function initGobang() {
   let animRaf = null, cellsEnLigne = new Set();
 
   function cellSize() {
-    const maxW = Math.min(window.innerWidth - 32, 560);
-    return Math.floor((maxW - MARGE*2) / (taille - 1));
+    const max = canvasMaxPx(200, 560);
+    return Math.floor((max - MARGE*2) / (taille - 1));
   }
 
   function stopAnim() {
@@ -2182,7 +2191,8 @@ function initCarres() {
   document.getElementById('ca-reset').addEventListener('click', start);
 
   let canvas, ctx;
-  const MARGE = 24, CELL = 40;
+  const MARGE = 24;
+  let CELL = 40;
 
   function traitKey(r, c, dir) { return `${r},${c},${dir}`; }
 
@@ -2192,6 +2202,7 @@ function initCarres() {
     joueur = Remote.actif ? 1 : premier; scorej1 = 0; scorej2 = 0; fini = false;
     updateScores();
 
+    CELL = Math.floor((canvasMaxPx(200, 520) - MARGE*2) / taille);
     const sz = CELL * taille + MARGE*2;
     canvas = document.createElement('canvas');
     canvas.width = sz; canvas.height = sz;
@@ -2622,7 +2633,7 @@ function initP4(modeInit, premierInit) {
 
   document.getElementById('p4-reset').addEventListener('click',()=>initP4(mode, premier));
 
-  const maxW=Math.min(window.innerWidth-32,490);
+  const maxW=canvasMaxPx(200, 490);
   const cellW=Math.floor(maxW/COLS);
   const W=cellW*COLS, H=cellW*ROWS+cellW;
   const R=cellW/2-4;
@@ -2807,7 +2818,7 @@ function initBN(modeInit, premierInit) {
   let mode = modeInit || 'ia', premier = premierInit || 1;
 
   // Tailles dynamiques
-  const avail = Math.min(window.innerWidth - 32, 680);
+  const avail = canvasMaxPx(300, 680);
   const csSetup  = Math.min(Math.floor(avail / SZ), 50);
   const csEnemy  = csSetup;                                           // grille adverse : pleine largeur
   const csMine   = Math.max(Math.floor(csSetup * 0.52), 16);         // ma flotte : indicatif, plus petite
@@ -3922,7 +3933,7 @@ function initOthello(modeInit, premierInit) {
   document.getElementById('ot-reset').addEventListener('click', () => initOthello(mode, premier));
 
   // ---- Canvas ----
-  const cellSz = Math.min(Math.floor((Math.min(window.innerWidth, 520) - 32) / SZ), 58);
+  const cellSz = Math.min(Math.floor(canvasMaxPx(200, 520) / SZ), 58);
   const W = cellSz * SZ, H = cellSz * SZ;
   const canvas = document.createElement('canvas');
   canvas.width = W; canvas.height = H;
